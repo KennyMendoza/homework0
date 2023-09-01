@@ -1,0 +1,78 @@
+---
+title: "Homework 0 -- Creating a Quarto document"
+format: html
+editor: visual
+author: Kenny Mendoza
+---
+
+### 1) To solve the given equation, the quadratic formula can be used:
+
+$$x =  \frac{-b ± \sqrt{b^2 - 4ac}}{2a}$$\
+
+For part 1 we obtain ($a=1, b=-1, c=-2$) $x = -1, x = 2$; for part 2 we obtain ($a=1, b=2, c=5$) no solutions; for part 3 we obtain ($a=1, b=3, c=2$) $x = -2, x = -1$.
+
+### 2) Define the variables a, b, and c in the R environment (code in the Quarto document)
+
+```{r}
+#| echo: false
+# Part 1 (two)
+#a <- 1
+#b <- -1
+#c <- -2
+
+# Part 2 (zero)
+#a <- 1
+#b <- 2
+#c <- 5
+
+# Part 3 (two) - Solutions for this will be in the plot
+a <- 1 
+b <- 3
+c <- 2
+
+# Testing values of a, b, and c for one or zero solutions
+# One solution
+#a <- 1
+#b <- -2
+#c <- 1
+
+# Zero solutions
+#a <- 1
+#b <- 0
+#c <- 1
+```
+
+### 3) Then, we proceed to plot our equation when a=1, b=3, and c=2 (code in the Quarto document)
+
+$$f(x) \text{ versus } x \text{ for } x \in (-5,5)$$
+
+```{r}
+#| echo: false
+# Discriminant of the quadratic formula
+dis <- b^2 - 4*a*c
+# Roots of the quadratic formula
+if (dis > 0) {
+  r1 <- (-b + sqrt(dis)) / (2*a)
+  r2 <- (-b - sqrt(dis)) / (2*a)
+  roots <- c(r1, r2)
+} else if (dis == 0) {
+  root <- -b / (2*a)
+  roots <- root
+} else {
+  roots <- NULL
+}
+# x values
+x <- seq(-5, 5, length = 300)
+# y values
+y <- a*x^2 + b*x + c
+# Plot the quadratic equation
+plot(x, y, type = "l", xlab = "x", ylab = "y", main = "a*x^2 + b*x + c")
+abline(h = 0, lty = 2)
+# Add points for solutions
+if (!is.null(roots)) {
+  points(roots, rep(0, length(roots)), col = "#990000", pch = 19)
+  text(roots, rep(0.5, length(roots)), labels = formatC(roots, format = "g", digits = 3), col = "#990000")
+} else {
+  text(0, max(y), "No solutions", col = "#990000")
+}
+```
